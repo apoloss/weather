@@ -1,0 +1,9 @@
+*.pyc
+node_modules/
+.idea/
+.sass-cache/
+sftp-config.json
+dev/
+*.mo
+.DS_Store
+db.sqlite3
