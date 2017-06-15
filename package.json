@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/apoloss/weather/issues"
   },
-  "homepage": "https://github.com/apoloss/weather#readme"
+  "homepage": "https://github.com/apoloss/weather#readme",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-babel": ">= 6.0.0",
+    "babel-plugin-transform-react-jsx": ">= 6.3",
+    "babel-preset-es2015": ">= 6.3",
+    "babel-preset-react": ">= 6.3"
+  }
 }

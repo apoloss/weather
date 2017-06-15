@@ -10,4 +10,5 @@ def index(request):
 	#https://api.darksky.net/forecast/[key]/[latitude],[longitude]
 	r = requests.get('https://api.darksky.net/forecast/' + settings.DARKSKY_KEY + '/' + '42.3601,-71.0589')
 	data = r.json()
-	return HttpResponse(json.dumps(data), content_type="application/json")
+	#return HttpResponse(json.dumps(data), content_type="application/json")
+	return render(request, 'forecast/base.html')
