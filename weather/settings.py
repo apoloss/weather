@@ -113,9 +113,9 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'prod_assets')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'prod_assets')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "prod_assets"),
 )
 DARKSKY_KEY = '5cb62a9d08ee00a0f475aefcd6e9950f'
