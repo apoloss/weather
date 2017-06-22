@@ -21,12 +21,6 @@ virtualenv dev
 4. Activate dev enviroment
 
 ```
-dev\Scripts\activate
-```
-
-OR
-
-```
 source dev\bin\activate
 ```
 
