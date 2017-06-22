@@ -114,7 +114,11 @@ class Weather extends React.Component {
             />
           </div>
           <div className='twelve columns'>
-            <button className='button-primary' onClick={() => this.findLatLongByCityName(this.state.city)}>See Forecast</button>
+            <button
+              className='button-primary'
+              onClick={() => this.findLatLongByCityName(this.state.city)}
+              disabled={!this.state.city || !this.state.date}
+            >See Forecast</button>
           </div>
         </div>
         {results}
