@@ -105,24 +105,18 @@
 	    value: function findLatLongByCityName(city) {
 	      var _this2 = this;
 
-	      //http://maps.googleapis.com/maps/api/geocode/json?address=Miami+FL&sensor=false
-	      console.log(city);
 	      _axios2.default.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + this.state.city + '&sensor=false').then(function (res) {
-	        //const posts = res.data.data.children.map(obj => obj.data);
-	        //console.log(res.data.results["0"].geometry.location);
 	        var lat = res.data.results["0"].geometry.location.lat;
 	        var lon = res.data.results["0"].geometry.location.lng;
 	        var time = '1497549600';
 	        var proxy = 'https://cors-anywhere.herokuapp.com/';
 	        var url = proxy + 'https://api.darksky.net/forecast/1d91e20fc6218bafefe2b9bd74b2df12/' + lat + ',' + lon + ',' + time;
 	        return _axios2.default.get(url).then(function (res) {
-	          console.log(res.data.currently.temperature);
 	          _this2.setState({
 	            min: res.data.daily.data["0"].temperatureMin,
 	            max: res.data.daily.data["0"].temperatureMax,
 	            temperature: res.data.currently.temperature,
 	            humidity: res.data.currently.humidity
-
 	          });
 	        });
 	      });
@@ -159,7 +153,7 @@
 	          { className: 'row' },
 	          _react2.default.createElement(
 	            'table',
-	            { className: 'u-full-width' },
+	            { id: 'results', className: 'u-full-width' },
 	            _react2.default.createElement(
 	              'thead',
 	              null,
@@ -240,6 +234,7 @@
 	            ),
 	            _react2.default.createElement('input', {
 	              name: 'city',
+	              id: 'city',
 	              onChange: this.handleChange,
 	              value: this.state.city,
 	              type: 'text',
@@ -257,6 +252,7 @@
 	            ),
 	            _react2.default.createElement(_reactDatepicker2.default, {
 	              name: 'date',
+	              id: 'date',
 	              selected: this.state.date,
 	              onChange: this.handlePicker,
 	              placeholderText: 'Pick a date',
@@ -269,6 +265,7 @@
 	            _react2.default.createElement(
 	              'button',
 	              {
+	                id: 'forecast',
 	                className: 'button-primary',
 	                onClick: function onClick() {
 	                  return _this3.findLatLongByCityName(_this3.state.city);

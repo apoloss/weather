@@ -62,7 +62,7 @@ class Weather extends React.Component {
     let results = null;
     if (isLoggedIn) {
       results = <div className='row'>
-          <table className="u-full-width">
+          <table id='results' className="u-full-width">
             <thead>
               <tr>
                 <th>Min</th>
@@ -90,6 +90,7 @@ class Weather extends React.Component {
             <label htmlFor='city'>City</label>
             <input
               name='city'
+              id='city'
               onChange={this.handleChange}
               value={ this.state.city }
               type='text'
@@ -101,6 +102,7 @@ class Weather extends React.Component {
             <label htmlFor='city'>Date</label>
             <DatePicker
               name='date'
+              id='date'
               selected={this.state.date}
               onChange={this.handlePicker}
               placeholderText='Pick a date'
@@ -109,6 +111,7 @@ class Weather extends React.Component {
           </div>
           <div className='twelve columns'>
             <button
+              id='forecast'
               className='button-primary'
               onClick={() => this.findLatLongByCityName(this.state.city)}
               disabled={!this.state.city || !this.state.date}

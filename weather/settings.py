@@ -118,4 +118,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "prod_assets"),
 )
-DARKSKY_KEY = '5cb62a9d08ee00a0f475aefcd6e9950f'
