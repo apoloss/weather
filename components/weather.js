@@ -3,14 +3,21 @@ import ReactDOM from 'react-dom'
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'skeleton-framework/dist/skeleton.min.css';
 
 class Weather extends React.Component {
   constructor() {
     super();
     this.state = {
-      city: ''
+      city: '',
+      date: '',
+      min: '',
+      max: '',
+      temperature: '',
+      humidity: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handlePicker = this.handlePicker.bind(this);
 
   }
   findLatLongByCityName(city){
@@ -25,36 +32,92 @@ class Weather extends React.Component {
         var time = '1497549600'
         var proxy = 'https://cors-anywhere.herokuapp.com/';
         var url = proxy + 'https://api.darksky.net/forecast/1d91e20fc6218bafefe2b9bd74b2df12/'+lat+','+lon+','+time
-        //https://api.darksky.net/forecast/[key]/[latitude],[longitude]
         return axios.get(url)
           .then(res =>{
-            console.log(res);
+            console.log(res.data.currently.temperature);
+            this.setState({
+              min: res.data.daily.data["0"].temperatureMin,
+              max: res.data.daily.data["0"].temperatureMax,
+              temperature: res.data.currently.temperature,
+              humidity: res.data.currently.humidity
+
+            })
           });
 
     });
     return null;
   }
+
   handleChange({ target }) {
     this.setState({
       [target.name]: target.value
     });
   }
 
+  handlePicker (date) {
+    this.setState({date: date})
+    this.toggleCalendar()
+  }
+
+  toggleCalendar (e) {
+    e && e.preventDefault()
+  }
+
   render() {
+    const isLoggedIn = this.state.min;
+    let results = null;
+    if (isLoggedIn) {
+      results = <div className='row'>
+          <table className="u-full-width">
+            <thead>
+              <tr>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.state.min}</td>
+                <td>{this.state.max}</td>
+                <td>{this.state.temperature}</td>
+                <td>{this.state.humidity}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    }
     return (
-      <div>
-        <input
-          name="city"
-          onChange={this.handleChange}
-          value={ this.state.city }
-          type='text'
-          placeholder='Enter a city'
-        />
-        <DatePicker
-          selected={this.state.startDate}
-          onChange={this.handleChange}
-        />
-        <button onClick={() => this.findLatLongByCityName(this.state.city)}>See Forecast</button>
+      <div className='container'>
+        <div className='row'>
+          <h3>YOYO Weather</h3>
+          <div className='three columns'>
+            <label htmlFor='city'>City</label>
+            <input
+              name='city'
+              onChange={this.handleChange}
+              value={ this.state.city }
+              type='text'
+              placeholder='Enter a city'
+              className='u-full-width'
+            />
+          </div>
+          <div className='three columns'>
+            <label htmlFor='city'>Date</label>
+            <DatePicker
+              name='date'
+              selected={this.state.date}
+              onChange={this.handlePicker}
+              placeholderText='Pick a date'
+              calendarClassName='u-full-width'
+            />
+          </div>
+          <div className='twelve columns'>
+            <button className='button-primary' onClick={() => this.findLatLongByCityName(this.state.city)}>See Forecast</button>
+          </div>
+        </div>
+        {results}
       </div>
     );
   }
